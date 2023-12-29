@@ -148,6 +148,50 @@ public class LL {
         }
     }
 
+     private void recursivereverse(Node curr){
+        if(curr == tail){
+            head = tail;
+            return;
+        }
+        recursivereverse(curr.next);
+        tail.next = curr;
+        tail = curr;
+        tail.next = null;
+    }
+
+    public Node reverseList(Node head) {
+//        head = recReverse(null,head,head.next);
+        head = itrReverse(head);
+        return head;
+    }
+
+    Node itrReverse(Node head){
+        Node prev = null;
+        Node curr = head;
+        Node next = head.next;
+        while(next != null){
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+            next = next.next;
+        }
+        curr.next = prev;
+        return curr;
+    }
+
+    Node recReverse(Node prev,Node curr,Node next){
+        if(next==null) {
+            curr.next = prev;
+            return curr;
+        }
+        curr.next = prev;
+        prev = curr;
+        curr = next;
+        next = next.next;
+        curr = recReverse(prev,curr,next);
+        return curr;
+    }
+
     public static void main(String[] args) {
         LL first = new LL();
         LL second = new LL();
@@ -163,6 +207,12 @@ public class LL {
 
         LL ans = mergeTwoLists(first,second);
         ans.display();
+
+        first.head = first.reverseList(first.head);
+        first.display();
+
+        second.recursivereverse(second.head);
+        second.display();
 
     }
 
@@ -194,5 +244,43 @@ public class LL {
         }
 
         return ans;
+    }
+
+    public void bubbleSort() {
+        bubbleSort(size - 1, 0);
+    }
+
+    private void bubbleSort(int row, int col) {
+        if (row == 0) {
+            return;
+        }
+
+        if (col < row) {
+            Node first = get(col);
+            Node second = get(col + 1);
+
+            if (first.value > second.value) {
+                // swap
+                if (first == head) {
+                    head = second;
+                    first.next = second.next;
+                    second.next = first;
+                } else if (second == tail) {
+                    Node prev = get(col - 1);
+                    prev.next = second;
+                    tail = first;
+                    first.next = null;
+                    second.next = tail;
+                } else {
+                    Node prev = get(col - 1);
+                    prev.next = second;
+                    first.next = second.next;
+                    second.next = first;
+                }
+            }
+            bubbleSort(row, col + 1);
+        } else {
+            bubbleSort(row - 1, 0);
+        }
     }
 }
