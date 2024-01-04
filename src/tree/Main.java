@@ -11,16 +11,28 @@ public class Main {
 //        binaryTree.display();
 
         int[] nums = new int[]{5,2,1,6,3,8,7,4,9,0};
-        BST bst = new BST();
+//        BST bst = new BST();
 //        bst.populateBST(nums);
         Arrays.sort(nums);
-        bst.populateBSTSorted(nums);
-        bst.display();
+//        bst.populateBSTSorted(nums);
+//        bst.display();
+//        System.out.println();
+//        bst.preOrder();
+//        System.out.println();
+//        bst.inOrder();
+//        System.out.println();
+//        bst.postOrder();
+
+        AVL tree = new AVL();
+        tree.populateAVL(nums);
+        tree.display();
         System.out.println();
-        bst.preOrder();
         System.out.println();
-        bst.inOrder();
+        tree.insert(9);
+        tree.display();
         System.out.println();
-        bst.postOrder();
+        System.out.println();
+        tree.insert(10);
+        tree.display();
     }
 }
