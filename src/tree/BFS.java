@@ -287,6 +287,28 @@ public class BFS {
 
         return true;
     }
+
+    //https://leetcode.com/problems/invert-binary-tree/
+    public TreeNode invertTree(TreeNode root) {
+        if(root == null) {
+            return root;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()){
+            int levelSize = queue.size();
+            for (int i = 0; i < levelSize; i++) {
+                TreeNode currNode = queue.poll();
+                if(currNode == null) continue;
+                TreeNode temp = currNode.left;
+                currNode.left = currNode.right;
+                currNode.right = temp;
+                queue.offer(currNode.left);
+                queue.offer(currNode.right);
+            }
+        }
+        return root;
+    }
 }
 
 class Node {
